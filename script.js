@@ -9,14 +9,20 @@ $(document).ready(function() {
 			results += '<div id="newsResult">'
 			results += '<div id="article">'
 			results += '<a id="article-title" href="' + json.articles[i].url + '">' + json.articles[i].title + '</a>'
-			results += '<p id="author">' + json.articles[i].author + '</p>'
+			if (json.articles[i].author === null)
+				results += '<p id="author">Unknown</p>'
+			else
+				results += '<p id="author">' + json.articles[i].author.toUpperCase() + '</p>'
 			results += '</div>'
 			results += '<div id="article-info">'
 			results += '<div>'
 			results += '<h4>' + json.articles[i].source.name + '</h4>'
-			results += '<p>' + json.articles[i].description + '</p>'
+			if (json.articles[i].description !== null)
+				results += '<p>' + json.articles[i].description + '</p>'
+			else
+				results += '<p>No description yet</p>'
 			results += '</div>'
-			results += '<img src="' + json.articles[i].urlToImage + '"></img>'
+			results += '<img src="' + json.articles[i].urlToImage + '" alt="No image"></img>'
 			results += '</div>'
 			results += '</div>'
 		}
@@ -29,7 +35,7 @@ $(document).ready(function() {
 		values = value.split(' ')
 		url_value = values.join('%')
 		console.log(url_value);
-		app.message = 'Search from top news sources: ' + value
+		app.message = 'Searching for: ' + value
 		var myurl= 'https://newsapi.org/v2/everything?' + 'q=' + url_value + '&sources=abc-news,bbc-news,cbs-news,cnn,financial-times,fox-news,google-news,hacker-new,ign,msnbc,national-geographic,nbc-news,reddit-r-all,the-economist,the-new-york-times,time,the-washington-post,the-wall-street-journalbusiness-insider,reuters&language=en&sortBy=popularity&' + apiKey;
 		console.log(myurl);
 
